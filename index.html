@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Подхожу ли я под банкротство? Тест за 2 минуты</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#16283B;--mute:#5A6B7B;--paper:#F2F5F7;--card:#FFFFFF;--line:#D5DDE3;--go:#1E7A6D;--go-ink:#FFFFFF;--warn:#B26B00;--warn-bg:#FBF1DE;--ok-bg:#E3F2EF;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ink:#E8EEF3;--mute:#9DAEBD;--paper:#0F1B27;--card:#172636;--line:#2B3F52;--go:#3FB5A3;--go-ink:#06201B;--warn:#E8A94A;--warn-bg:#2F2514;--ok-bg:#12302B}}
+:root[data-theme="dark"]{--ink:#E8EEF3;--mute:#9DAEBD;--paper:#0F1B27;--card:#172636;--line:#2B3F52;--go:#3FB5A3;--go-ink:#06201B;--warn:#E8A94A;--warn-bg:#2F2514;--ok-bg:#12302B}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:17px;line-height:1.5}
+main{max-width:560px;margin:0 auto;padding:20px 18px 40px}
+.brand{font-size:14px;color:var(--mute);margin:0 0 18px}
+.bar{height:4px;background:var(--line);border-radius:2px;overflow:hidden;margin-bottom:6px}
+.bar i{display:block;height:100%;width:0;background:var(--go);transition:width .25s}
+.step{font-size:14px;color:var(--mute);margin:0 0 22px}
+h1{font-size:28px;line-height:1.2;font-weight:600;margin:0 0 12px}
+h2{font-size:25px;line-height:1.25;font-weight:600;margin:0 0 10px}
+.hint{color:var(--mute);margin:0 0 20px;font-size:16px}
+.opts{display:grid;gap:10px}
+.opt{font:inherit;text-align:left;width:100%;min-height:54px;padding:13px 16px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:10px;cursor:pointer}
+.opt:hover{border-color:var(--go)}
+.opt:focus-visible,.btn:focus-visible,.link:focus-visible{outline:3px solid var(--go);outline-offset:2px}
+.btn{display:block;width:100%;text-align:center;font:inherit;font-weight:500;padding:15px 16px;border-radius:10px;border:1px solid var(--go);background:var(--go);color:var(--go-ink);text-decoration:none;cursor:pointer;margin-top:10px}
+.btn.alt{background:transparent;color:var(--ink);border-color:var(--line)}
+.link{background:none;border:0;color:var(--mute);font:inherit;font-size:15px;padding:12px 0;cursor:pointer;text-decoration:underline}
+.verdict{background:var(--ok-bg);border-radius:12px;padding:20px 18px;margin-bottom:18px}
+.verdict.w{background:var(--warn-bg)}
+.verdict p{margin:0}
+ul.notes{padding-left:20px;margin:0 0 18px}
+ul.notes li{margin-bottom:8px}
+.small{font-size:14px;color:var(--mute);margin-top:22px}
+.firm{border-top:1px solid var(--line);margin-top:26px;padding-top:14px;font-size:15px;color:var(--mute)}
+.firm a{color:inherit}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+</head>
+<body>
+<main>
+<p class="brand">Юридическая компания «Договор», Челябинск</p>
+<div id="app"></div>
+<div class="firm">Челябинск, Комсомольский пр-т, 80, офис 24<br><a href="tel:+73512207515">+7 (351) 220-75-15</a></div>
+</main>
+<script>
+var Q=[
+{k:"d",q:"Какая у вас общая сумма долгов?",h:"Кредиты, займы, микрозаймы, налоги, штрафы, ЖКХ — всё вместе.",o:[["Меньше 25 000 ₽","d0"],["От 25 000 до 500 000 ₽","d1"],["От 500 000 до 1 000 000 ₽","d2"],["Больше 1 000 000 ₽","d3"]]},
+{k:"p",q:"Как давно вы не платите по долгам?",h:"Выберите то, что ближе к вашей ситуации.",o:[["Плачу, просрочек нет","p0"],["Просрочка меньше 3 месяцев","p1"],["Просрочка больше 3 месяцев","p2"]]},
+{k:"e",q:"Что с приставами?",h:"Проверить можно на Госуслугах или в банке данных исполнительных производств.",o:[["Дел у приставов нет","e0"],["Дело идёт меньше года","e1"],["Дело идёт больше года","e2"],["Дело окончено: приставы вернули документ, взыскать нечего","e3"],["Не знаю","e9"]]},
+{k:"i",q:"Какой у вас основной доход?",h:"",o:[["Официальная зарплата","i0"],["Пенсия или соцпособия, другого дохода нет","i1"],["Неофициальный заработок","i2"],["Дохода нет","i3"]]},
+{k:"m",q:"Есть ли у вас что-то, кроме единственного жилья?",h:"Машина, вторая квартира, земля, крупные вклады.",o:[["Нет","m0"],["Да","m1"]]},
+{k:"t",q:"Продавали или дарили имущество за последние 3 года?",h:"Особенно близким людям.",o:[["Нет","t0"],["Да","t1"]]}
+];
+var A={},L={},n=0,app=document.getElementById("app");
+function bar(){return '<div class="bar"><i style="width:'+(n/Q.length*100)+'%"></i></div><p class="step">Вопрос '+(n+1)+' из '+Q.length+'</p>'}
+function ask(){
+ var q=Q[n],h=bar()+'<h2>'+q.q+'</h2>'+(q.h?'<p class="hint">'+q.h+'</p>':'<p class="hint"></p>')+'<div class="opts">';
+ q.o.forEach(function(o){h+='<button class="opt" data-v="'+o[1]+'">'+o[0]+'</button>'});
+ h+='</div>'+(n>0?'<button class="link" id="back">Назад</button>':'');
+ app.innerHTML=h;
+ app.querySelectorAll(".opt").forEach(function(b,i){b.onclick=function(){A[q.k]=b.dataset.v;L[q.k]=q.o[i][0];n++;n<Q.length?ask():res()}});
+ var bk=document.getElementById("back");if(bk)bk.onclick=function(){n--;ask()};
+ window.scrollTo(0,0);
+}
+function start(){
+ n=0;A={};L={};
+ app.innerHTML='<h1>Подхожу ли я под банкротство?</h1><p class="hint">Шесть коротких вопросов, две минуты. Вы узнаете, какой путь вам, скорее всего, подойдёт: через МФЦ или через суд.</p><button class="btn" id="go">Пройти тест</button><p class="small">Ответы никуда не отправляются, пока вы сами не решите связаться с нами.</p>';
+ document.getElementById("go").onclick=ask;
+}
+function res(){
+ var a=A,mfcOK=(a.d=="d1"||a.d=="d2")&&(a.e=="e3"||(a.e=="e2"&&a.i=="i1"&&a.m=="m0"));
+ var t,s,w=false,notes=[];
+ if(a.d=="d0"){t="Долг пока небольшой для банкротства";s="При долге меньше 25 000 ₽ ни МФЦ, ни суд банкротство обычно не рассматривают. Юрист подскажет, как действовать в вашей ситуации.";w=true}
+ else if(mfcOK){t="Похоже, вам подходит банкротство через МФЦ";s="Это внесудебная процедура: долг в нужных пределах и приставы не нашли, что взыскать. Важно проверить документы до подачи, чтобы заявление не отклонили."}
+ else if(a.p=="p0"){t="Нужна консультация юриста";s="Если просрочек нет, вопрос тоньше: есть ли смысл идти в банкротство сейчас, зависит от ваших доходов и платежей. По тесту это однозначно не определить.";w=true}
+ else{t="Скорее всего, вам подойдёт банкротство через суд";s="При вашей сумме долга и статусе дела у приставов обычно идут через арбитражный суд. Процедура занимает несколько месяцев."}
+ if(!mfcOK&&(a.d=="d2"||a.d=="d3")&&a.p=="p2")notes.push("При долге от 500 000 ₽ и просрочке больше 3 месяцев закон может обязывать подать заявление в установленный срок. Лучше не затягивать с консультацией.");
+ if(a.d=="d3")notes.push("Долг больше 1 000 000 ₽: через МФЦ банкротство невозможно, только через суд.");
+ if(a.e=="e9")notes.push("Статус дела у приставов повлияет на выбор процедуры. Юрист поможет его проверить.");
+ if(a.m=="m1")notes.push("Есть имущество кроме единственного жилья: юрист оценит, что может быть реализовано. Единственное жильё, как правило, не продаётся, но есть исключения, например ипотека.");
+ if(a.t=="t1")notes.push("Сделки за последние 3 года могут проверить. Расскажите о них юристу заранее, это снижает риски.");
+ var sum="Тест на банкротство. Мои ответы:\n";Q.forEach(function(q){sum+=q.q+" "+L[q.k]+"\n"});sum+="Результат: "+t;
+ var h='<div class="bar"><i style="width:100%"></i></div><p class="step">Готово</p><div class="verdict'+(w?' w':'')+'"><h2>'+t+'</h2><p>'+s+'</p></div>';
+ if(notes.length){h+='<ul class="notes">';notes.forEach(function(x){h+='<li>'+x+'</li>'});h+='</ul>'}
+ h+='<p class="hint">Расскажите юристу свою ситуацию, он проверит всё по документам и скажет точно.</p>'+
+ '<a class="btn" href="tel:+73512207515">Позвонить +7 (351) 220-75-15</a>'+
+ '<a class="btn alt" href="https://t.me/+79222207515" target="_blank" rel="noopener">Написать в Telegram</a>'+
+ '<button class="btn alt" id="cp">Скопировать мои ответы</button><p class="small" id="cpm">Скопируйте ответы и вставьте в чат: так юристу не придётся спрашивать всё заново.</p>'+
+ '<button class="link" id="re">Пройти тест заново</button>'+
+ '<p class="small">Результат предварительный, он построен только на ваших ответах и не заменяет консультацию юриста.</p>';
+ app.innerHTML=h;window.scrollTo(0,0);
+ document.getElementById("re").onclick=start;
+ document.getElementById("cp").onclick=function(){
+  var m=document.getElementById("cpm");
+  function ok(){m.textContent="Скопировано. Вставьте в чат с юристом."}
+  function fb(){try{var x=document.createElement("textarea");x.value=sum;document.body.appendChild(x);x.select();document.execCommand("copy");document.body.removeChild(x);ok()}catch(e){m.textContent="Не удалось скопировать. Выделите результат и ответы вручную."}}
+  try{navigator.clipboard.writeText(sum).then(ok,fb)}catch(e){fb()}
+ };
+}
+start();
+</script>
+</body>
+</html>
